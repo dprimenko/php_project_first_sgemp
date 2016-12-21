@@ -1,6 +1,6 @@
 <?php
 
-include('dao.php');
+include_once('dao.php');
 
 session_start();
 
@@ -14,7 +14,7 @@ class App {
 	protected $dao;
 
 	function __construct() {
-		$this->dao = InventoryDao();
+		$this->dao = new InventoryDao();
 	}
 
 	function getDao() {

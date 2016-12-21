@@ -31,15 +31,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // 1.Crear conexión 
     if (is_null($app->getDao()->isConnected())) {
-      $this->showErrorConnection();
+      $app->showErrorConnection();
     } else {
-      
+      if ($app->getDao()->checkUser($user, $password)) {
+        // Guardar sesión
+        $app->init_session($user);
+        // Redireccionar a otra página
+        echo '<script language="javascript">window.location.href="inventory.php"</script>';  
+      } else {
+        echo "<p>Error de login</p>";
+      }
     }
 
-    // Guardar sesión
-    $app->init_session($user);
-    echo '<script language="javascript">window.location.href="inventory.php"</script>';
-    // Redireccionar a otra página
+    
   }
 }
 $app->footer();
